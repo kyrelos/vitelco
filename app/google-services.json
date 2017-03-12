@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "759281703363",
+    "firebase_url": "https://vitelcodemo.firebaseio.com",
+    "project_id": "vitelcodemo",
+    "storage_bucket": "vitelcodemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759281703363:android:fb8acce1e4749553",
+        "android_client_info": {
+          "package_name": "com.example.vitelco.vitelco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759281703363-2rh2hq11prkc6fh8t5ksiv0vn5hvtro6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzWFl0_XTXcGRkitiPQohtzbBPJCGRP5M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
