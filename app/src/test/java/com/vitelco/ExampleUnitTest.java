@@ -1,4 +1,4 @@
-package com.example.vitelco.vitelco;
+package com.vitelco;
 
 import org.junit.Test;
 

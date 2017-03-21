@@ -1,4 +1,4 @@
-package com.example.vitelco.vitelco;
+package com.vitelco;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

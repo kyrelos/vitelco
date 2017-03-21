@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">Vitelco</string>
+    <string name="transaction_title">Vitelco Transaction</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="pin">PIN</string>
+    <string name="dummy_transaction_message">Enter your PIN and tap OK to complete the transaction of Ksh. 1000 to be deducted from your wallet to Dominos Pizza.</string>
+    <string name="welcome_message">Welcome to Vitelco</string>
+    <string name="enter_phone_no">Enter your phone number</string>
+    <string name="continue_text">Continue</string>
+    <string name="dummy_phone_number">+254720317402</string>
+    <string name="testing_phone_number">Testing phone number:</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="device_not_registered">Device not registered yet. Try again after a minute</string>
+    <string name="login_error">Failed to login. Try again</string>
+    <string name="login">Login</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_dialog">Vitelco Transaction</string>
 </resources>

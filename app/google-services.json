@@ -1,27 +1,38 @@
 {
   "project_info": {
-    "project_number": "759281703363",
-    "firebase_url": "https://vitelcodemo.firebaseio.com",
-    "project_id": "vitelcodemo",
-    "storage_bucket": "vitelcodemo.appspot.com"
+    "project_number": "446095421830",
+    "firebase_url": "https://vitelco-d6320.firebaseio.com",
+    "project_id": "vitelco-d6320",
+    "storage_bucket": "vitelco-d6320.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:759281703363:android:fb8acce1e4749553",
+        "mobilesdk_app_id": "1:446095421830:android:2bd58c02c80befe1",
         "android_client_info": {
-          "package_name": "com.example.vitelco.vitelco"
+          "package_name": "com.vitelco"
         }
       },
       "oauth_client": [
         {
-          "client_id": "759281703363-2rh2hq11prkc6fh8t5ksiv0vn5hvtro6.apps.googleusercontent.com",
+          "client_id": "446095421830-pggdn7q8acdeb32s6q0ttnllnsaebsu5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vitelco",
+            "certificate_hash": "fab64cf2723a1205becb4a5ec57252a0c1487a15"
+          }
+        },
+        {
+          "client_id": "446095421830-k8safqcuq4ks7gds77v2gsm0nkeddd5g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDzWFl0_XTXcGRkitiPQohtzbBPJCGRP5M"
+          "current_key": "AIzaSyAohdTxw15eC4YkMMlrhy4acfx7xI1u-lE"
+        },
+        {
+          "current_key": "AIzaSyBAhETj1ubGeIGrN-ZWjljHwbPKhsoZuxM"
         }
       ],
       "services": {
@@ -29,8 +40,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446095421830-k8safqcuq4ks7gds77v2gsm0nkeddd5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
