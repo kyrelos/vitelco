@@ -3,12 +3,19 @@ package com.vitelco;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.text.InputType;
 import android.util.Log;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.security.cert.CertificateException;
 import java.util.Random;
@@ -126,4 +133,33 @@ public class Utils {
             return null;
         }
     }
+
+    public void logout() {
+        //clear shared preferences
+        context.getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+        Intent intent = new Intent(activity, Vitelco.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    public void promptLogout() {
+        new MaterialDialog.Builder(context)
+                .cancelable(false)
+                .titleColorRes(R.color.colorPrimary)
+                .contentColorRes(R.color.dark_grey)
+                .backgroundColorRes(R.color.white)
+                .positiveColorRes(R.color.colorAccent)
+                .negativeColorRes(R.color.colorAccent)
+                .title(R.string.logout).content(R.string.logout_message)
+                .positiveText(R.string.yes)
+                .negativeText(R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        logout();
+                    }
+                })
+                .build().show();
+    }
+
 }

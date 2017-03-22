@@ -18,53 +18,72 @@ import org.json.JSONObject;
 
 public class VitelcoTransaction extends BaseActivity {
 
-    private String pin, message;
+    private String pin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        message = getString(R.string.transaction_title);
+        String message = getString(R.string.transaction_title);
+        String messageType = Constants.NORMAL_NOTIFICATION_TYPE;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String msg = extras.getString(Constants.MESSAGE_KEY);
+            String type = extras.getString(Constants.MESSAGE_TYPE_KEY);
             if (!StringUtils.isBlank(msg)) {
                 message = msg;
             }
+            if (!StringUtils.isBlank(type)) {
+                messageType = type;
+            }
         }
-        new MaterialDialog.Builder(this)
-                .cancelable(false)
-                .titleColorRes(R.color.colorPrimary)
-                .contentColorRes(R.color.dark_grey)
-                .backgroundColorRes(R.color.white)
-                .positiveColorRes(R.color.colorAccent)
-                .negativeColorRes(R.color.colorAccent)
-                .title(R.string.transaction_title).content(message)
-                .positiveText(R.string.ok)
-                .negativeText(R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Log.e(TAG, "Ok transaction");
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Log.e(TAG, "Cancel transaction");
-                        cancel();
-                    }
-                })
-                .inputType(InputType.TYPE_CLASS_NUMBER)
-                .inputRangeRes(4, 4, R.color.material_red_500)
-                .input(getString(R.string.pin), "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        pin = input.toString();
-                        Log.e(TAG, "Input: " + pin);
-                        ok();
-                    }
-                })
-                .build().show();
+
+        if (messageType.equals(Constants.PUSH_NOTIFICATION_TYPE)) {
+            new MaterialDialog.Builder(this)
+                    .cancelable(false)
+                    .titleColorRes(R.color.colorPrimary)
+                    .contentColorRes(R.color.dark_grey)
+                    .backgroundColorRes(R.color.white)
+                    .positiveColorRes(R.color.colorAccent)
+                    .negativeColorRes(R.color.colorAccent)
+                    .title(R.string.transaction_title).content(message)
+                    .positiveText(R.string.ok)
+                    .negativeText(R.string.cancel)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Log.e(TAG, "Ok transaction");
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Log.e(TAG, "Cancel transaction");
+                            cancel();
+                        }
+                    })
+                    .inputType(InputType.TYPE_CLASS_NUMBER)
+                    .inputRangeRes(4, 4, R.color.material_red_500)
+                    .input(getString(R.string.pin), "", new MaterialDialog.InputCallback() {
+                        @Override
+                        public void onInput(MaterialDialog dialog, CharSequence input) {
+                            pin = input.toString();
+                            Log.e(TAG, "Input: " + pin);
+                            ok();
+                        }
+                    })
+                    .build().show();
+        } else {
+            new MaterialDialog.Builder(this)
+                    .cancelable(false)
+                    .titleColorRes(R.color.colorPrimary)
+                    .contentColorRes(R.color.dark_grey)
+                    .backgroundColorRes(R.color.white)
+                    .positiveColorRes(R.color.colorAccent)
+                    .negativeColorRes(R.color.colorAccent)
+                    .title(R.string.app_name).content(message)
+                    .positiveText(R.string.ok)
+                    .build().show();
+        }
     }
 
     private void ok() {

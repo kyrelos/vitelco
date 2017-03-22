@@ -41,9 +41,7 @@ public class VitelcoMessagingService extends FirebaseMessagingService {
         extras.putString(Constants.MESSAGE_TYPE_KEY, messageType);
         extras.putString(Constants.NOTIFICATION_ID_KEY, notificationId);
         //if message type is normal, just show the notification, else make the USSD like dialog
-        if (messageType.equals(Constants.NORMAL_NOTIFICATION_TYPE)) {
-            //new Utils(context).makeNotification(message, extras);
-        } else {
+        if (messageType.equals(Constants.PUSH_NOTIFICATION_TYPE)) {
             String transactionId = dataMap.get("v_transaction_id");
             extras.putString(Constants.TRANSACTION_ID_KEY, transactionId);
 
@@ -52,13 +50,12 @@ public class VitelcoMessagingService extends FirebaseMessagingService {
             ed.putString(Constants.TRANSACTION_ID_KEY, transactionId);
             ed.putString(Constants.NOTIFICATION_ID_KEY, notificationId);
             ed.apply();
-
-            //start the dialog activity
-            Intent dialogActivityIntent = new Intent(context, VitelcoTransaction.class);
-            dialogActivityIntent.putExtras(extras);
-            dialogActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(dialogActivityIntent);
         }
+        //start the dialog activity
+        Intent dialogActivityIntent = new Intent(context, VitelcoTransaction.class);
+        dialogActivityIntent.putExtras(extras);
+        dialogActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogActivityIntent);
     }
 
     @Override

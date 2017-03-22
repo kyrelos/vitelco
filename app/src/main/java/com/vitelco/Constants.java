@@ -28,4 +28,6 @@ public class Constants {
     public static final String REJECTED = "rejected";
     public static final String LOGGED_IN_KEY = "loggedIn";
     public static final String TEAM_NAME_KEY = "team_name";
+    public static final String DEFAULT_COUNTRY_CODE = "KE";
+
 }

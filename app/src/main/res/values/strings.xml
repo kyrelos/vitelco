@@ -28,4 +28,8 @@
     <string name="default_country_name">Kenya (KE)</string>
     <string name="default_code">+254</string>
     <string name="invalid_phone_number">Phone number is invalid</string>
+    <string name="logout">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

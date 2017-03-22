@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+import com.vitelco.views.CountryCodePicker;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +31,8 @@ public class Vitelco extends BaseActivity {
 
     private EditText phoneEditText, teamNameEditText;
     private String teamName, phoneNumber, token;
+    private CountryCodePicker countryCodePicker;
+    private String countryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,10 @@ public class Vitelco extends BaseActivity {
         setSupportActionBar(toolbar);
         phoneEditText = (EditText) findViewById(R.id.phoneNumberEditText);
         teamNameEditText = (EditText) findViewById(R.id.teamNameEditText);
+        countryCodePicker = (CountryCodePicker) findViewById(R.id.countryCodePicker);
+        countryCode = Constants.DEFAULT_COUNTRY_CODE;
+        countryCodePicker.setDefaultCountryUsingNameCode(countryCode.toLowerCase());
+        countryCodePicker.setCountryForNameCode(countryCode.toLowerCase());
         checkIfLoggedIn();
         findViewById(R.id.continueButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +119,7 @@ public class Vitelco extends BaseActivity {
     private boolean isValidInput() {
         teamName = teamNameEditText.getText().toString().trim();
         phoneNumber = phoneEditText.getText().toString().trim();
+        countryCode = countryCodePicker.getSelectedCountryNameCode().toUpperCase();
 
         if (teamName.isEmpty()) {
             teamNameEditText.setError("Required");
@@ -118,6 +130,23 @@ public class Vitelco extends BaseActivity {
             phoneEditText.setError("Required");
             return false;
         }
+
+        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber phoneNumberProto = phoneNumberUtil.parse(phoneNumber, countryCode);
+            boolean isValid = phoneNumberUtil.isValidNumber(phoneNumberProto);
+            if (isValid) {
+                phoneNumber = phoneNumberUtil.format(phoneNumberProto, PhoneNumberUtil.PhoneNumberFormat.E164);
+                phoneEditText.setError(null);
+            } else {
+                phoneEditText.setError(getString(R.string.invalid_phone_number));
+                return false;
+            }
+        } catch (NumberParseException e) {
+            phoneEditText.setError(getString(R.string.invalid_phone_number));
+            return false;
+        }
+
         SharedPreferences.Editor ed = prefs.edit();
         ed.putString(Constants.MSISDN_KEY, phoneNumber);
         ed.putString(Constants.TEAM_NAME_KEY, teamName);
