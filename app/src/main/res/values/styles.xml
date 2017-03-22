@@ -45,4 +45,11 @@
     <!--<item name="android:background">@color/colorPrimaryDark</item>-->
     <!--</style>-->
 
+
+    <style name="EditTextTheme" parent="Theme.Vitelco">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
 </resources>

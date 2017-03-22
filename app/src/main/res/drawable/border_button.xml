@@ -4,7 +4,7 @@
     <!-- disabled -->
     <item android:state_enabled="false">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-            <gradient android:angle="270" android:endColor="@color/colorPrimary" android:startColor="@color/colorPrimary"/>
+            <gradient android:angle="270" android:endColor="@color/colorAccent" android:startColor="@color/colorAccent"/>
 
             <corners android:radius="8dp"/>
         </shape>
@@ -12,7 +12,7 @@
     <!-- pressed -->
     <item android:state_enabled="true" android:state_pressed="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-            <gradient android:angle="270" android:endColor="@color/colorPrimaryDark" android:startColor="@color/colorPrimaryDark"/>
+            <gradient android:angle="270" android:endColor="@color/colorAccentDark" android:startColor="@color/colorAccentDark"/>
 
             <corners android:radius="8dp"/>
         </shape>
@@ -20,7 +20,7 @@
     <!-- focused -->
     <item android:state_focused="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-            <gradient android:angle="270" android:endColor="@color/colorPrimaryDark" android:startColor="@color/colorPrimaryDark"/>
+            <gradient android:angle="270" android:endColor="@color/colorAccentDark" android:startColor="@color/colorAccentDark"/>
 
             <corners android:radius="8dp"/>
         </shape>
@@ -28,7 +28,7 @@
     <!-- default -->
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-            <gradient android:angle="270" android:endColor="@color/colorPrimary" android:startColor="@color/colorPrimary"/>
+            <gradient android:angle="270" android:endColor="@color/colorAccent" android:startColor="@color/colorAccent"/>
 
             <corners android:radius="8dp"/>
         </shape>

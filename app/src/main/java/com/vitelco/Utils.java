@@ -18,7 +18,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.cert.CertificateException;
 import java.util.Random;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,8 +44,6 @@ public class Utils {
     private static final String TAG = "Utils";
     private BaseActivity activity;
     private Context context;
-    private final OkHttpClient client = new OkHttpClient();
-    private final Gson gson = new Gson();
 
     public Utils(BaseActivity activity) {
         this.activity = activity;
@@ -89,71 +95,44 @@ public class Utils {
         notificationManager.notify(notificationId, builder.build());
     }
 
-    public void postToken(final String token, final String msisdn, final boolean showProgress) {
-        JSONObject jsonObject = new JSONObject();
+    public static OkHttpClient getAllTrustingOkHttpClient() {
         try {
-            jsonObject.put(Constants.REQUEST_TYPE_KEY, Constants.TOKEN_REFRESH_REQUEST);
-            jsonObject.put(Constants.MSISDN_KEY, msisdn);
-            jsonObject.put(Constants.TOKEN_KEY, token);
-        } catch (JSONException e) {
+            // Create a trust manager that does not validate certificate chains
+            final TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
+                        }
+                    }
+            };
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            // Create an ssl socket factory with our all-trusting manager
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+            builder.hostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+            return builder.build();
+        } catch (Exception e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
-        }
-
-        Request request = new Request.Builder()
-                .url(Constants.API_URL + "/updatenotification")
-                .post(RequestBody.create(Constants.JSON, jsonObject.toString()))
-                .build();
-
-        if (showProgress) {
-            activity.showProgress(R.string.login);
-        }
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, e.getLocalizedMessage(), e);
-                if (showProgress) {
-                    activity.hideProgress();
-                }
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (showProgress) {
-                    activity.hideProgress();
-                }
-                Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body());
-                if (!response.isSuccessful()) {
-                    Log.e(TAG, response.body().toString());
-                    Toast.makeText(context, context.getString(R.string.login_error), Toast.LENGTH_LONG).show();
-                }
-                TokenResponse tokenResponse = gson.fromJson(response.body().charStream(), TokenResponse.class);
-                SharedPreferences prefs = context.getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putString(Constants.WALLET_ID_KEY, tokenResponse.getWalletId());
-                //ed.putString(Constants.MSISDN_KEY,tokenResponse.getMsisdn());
-                ed.apply();
-            }
-        });
-    }
-
-    public void postUserResponse(String pin, String status) {
-        SharedPreferences prefs = context.getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        String transactionId = prefs.getString(Constants.TRANSACTION_ID_KEY, "");
-        String notificationId = prefs.getString(Constants.NOTIFICATION_ID_KEY, "");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(Constants.REQUEST_TYPE_KEY, Constants.PUSH_RESPONSE_REQUEST);
-            jsonObject.put(Constants.TRANSACTION_ID_KEY, transactionId);
-            jsonObject.put(Constants.NOTIFICATION_ID_KEY, notificationId);
-            jsonObject.put("status", status);
-            jsonObject.put("pin", pin);
-            Intent serviceIntent = new Intent(context, PostPushResponseService.class);
-            Bundle extras = new Bundle();
-            extras.putString("data", jsonObject.toString());
-            serviceIntent.putExtras(extras);
-            context.startService(serviceIntent);
-        } catch (JSONException e) {
-            Log.e(TAG, e.getLocalizedMessage(), e);
+            return null;
         }
     }
 }

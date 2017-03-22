@@ -14,5 +14,8 @@
     <string name="device_not_registered">Device not registered yet. Try again after a minute</string>
     <string name="login_error">Failed to login. Try again</string>
     <string name="login">Login</string>
+    <string name="enter_team_name">Enter your team name</string>
+    <string name="my_profile">My Profile</string>
+    <string name="dummy_team">Dothraki</string>
 
 </resources>

@@ -15,9 +15,12 @@ public class Home extends BaseActivity {
         this.setFinishOnTouchOutside(false);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TextView teamNameTextView = (TextView) findViewById(R.id.teamNameTextView);
         TextView phoneTextView = (TextView) findViewById(R.id.phoneNumberTextView);
+
         SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        phoneTextView.setText(prefs.getString(Constants.MSISDN_KEY, ""));
+        teamNameTextView.setText("Team: " + prefs.getString(Constants.TEAM_NAME_KEY, ""));
+        phoneTextView.setText("Phone: " + prefs.getString(Constants.MSISDN_KEY, ""));
     }
 
 }

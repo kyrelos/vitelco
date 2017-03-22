@@ -44,23 +44,32 @@ public class PostPushResponseService extends Service {
     }
 
     public void postResponse(String data) {
-        final OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(Constants.API_URL + "/updatenotification")
-                .post(RequestBody.create(Constants.JSON, data))
-                .build();
+        final OkHttpClient client = Utils.getAllTrustingOkHttpClient();
+        if (client == null) {
+            Log.e(TAG, "getAllTrustingOkHttpClient returned null");
+            return;
+        }
+        try {
+            String url = Constants.API_URL + "/notification/update";
+            Log.d(TAG, "Posting data:" + data + " to url: " + url);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(RequestBody.create(Constants.JSON, data))
+                    .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, e.getLocalizedMessage(), e);
-            }
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.e(TAG, e.getLocalizedMessage(), e);
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body());
-            }
-        });
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body());
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+        }
     }
-
 }

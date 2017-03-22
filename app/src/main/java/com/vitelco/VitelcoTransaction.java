@@ -1,8 +1,15 @@
 package com.vitelco;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class VitelcoTransaction extends BaseActivity {
 
@@ -42,11 +49,32 @@ public class VitelcoTransaction extends BaseActivity {
     }
 
     private void ok() {
-        utils.postUserResponse(pin, Constants.ACCEPTED);
+        postUserResponse(pin, Constants.ACCEPTED);
     }
 
     private void cancel() {
-        utils.postUserResponse(pin, Constants.REJECTED);
+        postUserResponse(pin, Constants.REJECTED);
+    }
+
+    private void postUserResponse(String pin, String status) {
+        SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        String transactionId = prefs.getString(Constants.TRANSACTION_ID_KEY, "");
+        String notificationId = prefs.getString(Constants.NOTIFICATION_ID_KEY, "");
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Constants.REQUEST_TYPE_KEY, Constants.PUSH_RESPONSE_REQUEST);
+            jsonObject.put(Constants.TRANSACTION_ID_KEY, transactionId);
+            jsonObject.put(Constants.NOTIFICATION_ID_KEY, notificationId);
+            jsonObject.put("status", status);
+            jsonObject.put("pin", pin);
+            Intent serviceIntent = new Intent(activity, PostPushResponseService.class);
+            Bundle extras = new Bundle();
+            extras.putString("data", jsonObject.toString());
+            serviceIntent.putExtras(extras);
+            startService(serviceIntent);
+        } catch (JSONException e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+        }
     }
 
     @Override
