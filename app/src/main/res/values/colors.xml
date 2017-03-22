@@ -19,4 +19,7 @@
     <color name="eighty_percent_white">#CCffffff</color>
 
     <color name="material_red_500">#e51c23</color>
+
+    <color name="defaultContentColor">#61665D</color>
+
 </resources>

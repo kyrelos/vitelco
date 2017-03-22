@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/relative_countryCodeHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textView_selectedCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/default_country_code"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:id="@+id/imageView_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/textView_selectedCountry"
+        android:adjustViewBounds="true"
+        android:alpha="0.6"
+        android:src="@drawable/ic_action_expand"
+        android:tint="@android:color/black"/>
+</RelativeLayout>

@@ -21,5 +21,11 @@
     <string name="phone">Phone: %1$s</string>
     <string name="ok_thanks">Thanks for your response</string>
     <string name="cancelled">Transaction cancelled</string>
-
+    <string name="default_country_code">(KE) +254</string>
+    <string name="select_country">Select country</string>
+    <string name="search_">Search$#8230</string>
+    <string name="no_results_found">No result found</string>
+    <string name="default_country_name">Kenya (KE)</string>
+    <string name="default_code">+254</string>
+    <string name="invalid_phone_number">Phone number is invalid</string>
 </resources>
