@@ -51,7 +51,7 @@ public class PostPushResponseService extends Service {
         }
         try {
             String url = Constants.API_URL + "/notification/update";
-            Log.d(TAG, "Posting data:" + data + " to url: " + url);
+            Log.e(TAG, "Posting data:" + data + " to url: " + url);
             Request request = new Request.Builder()
                     .url(url)
                     .post(RequestBody.create(Constants.JSON, data))
@@ -65,7 +65,7 @@ public class PostPushResponseService extends Service {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body());
+                    Log.e(TAG, "Got response, status code: " + response.code() + ", body: " + response.body());
                 }
             });
         } catch (Exception e) {

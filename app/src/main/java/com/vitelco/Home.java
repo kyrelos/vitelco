@@ -19,8 +19,8 @@ public class Home extends BaseActivity {
         TextView phoneTextView = (TextView) findViewById(R.id.phoneNumberTextView);
 
         SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        teamNameTextView.setText("Team: " + prefs.getString(Constants.TEAM_NAME_KEY, ""));
-        phoneTextView.setText("Phone: " + prefs.getString(Constants.MSISDN_KEY, ""));
+        teamNameTextView.setText(String.format(getString(R.string.team), prefs.getString(Constants.TEAM_NAME_KEY, "")));
+        phoneTextView.setText(String.format(getString(R.string.phone), prefs.getString(Constants.MSISDN_KEY, "")));
     }
 
 }

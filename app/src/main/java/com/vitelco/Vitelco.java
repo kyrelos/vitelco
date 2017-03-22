@@ -66,7 +66,7 @@ public class Vitelco extends BaseActivity {
         try {
             String data = jsonObject.toString();
             String url = Constants.API_URL + "/notification/update";
-            Log.d(TAG, "Posting data:" + data + " to url: " + url);
+            Log.e(TAG, "Posting data:" + data + " to url: " + url);
             Request request = new Request.Builder()
                     .url(url)
                     .post(RequestBody.create(Constants.JSON, data))
@@ -83,7 +83,7 @@ public class Vitelco extends BaseActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     activity.hideProgress();
-                    Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body().string());
+                    Log.e(TAG, "Got response, status code: " + response.code() + ", body: " + response.body().string());
                     if (response.isSuccessful()) {
                         SharedPreferences prefs = activity.getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor ed = prefs.edit();

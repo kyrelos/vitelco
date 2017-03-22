@@ -33,7 +33,7 @@ public class VitelcoFireBaseInstanceIDService extends FirebaseInstanceIdService 
         SharedPreferences.Editor ed = prefs.edit();
         ed.putString(Constants.TOKEN_KEY, refreshedToken);
         ed.apply();
-        Log.d(TAG, "refreshed_token:" + refreshedToken);
+        Log.e(TAG, "refreshed_token:" + refreshedToken);
 
         String phoneNumber = prefs.getString(Constants.MSISDN_KEY, "");
         if (!phoneNumber.isEmpty()) {
@@ -55,7 +55,7 @@ public class VitelcoFireBaseInstanceIDService extends FirebaseInstanceIdService 
             try {
                 String data = jsonObject.toString();
                 String url = Constants.API_URL + "/notification/update";
-                Log.d(TAG, "Posting data:" + data + " to url: " + url);
+                Log.e(TAG, "Posting data:" + data + " to url: " + url);
                 Request request = new Request.Builder()
                         .url(url)
                         .post(RequestBody.create(Constants.JSON, data))
@@ -68,7 +68,7 @@ public class VitelcoFireBaseInstanceIDService extends FirebaseInstanceIdService 
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Log.d(TAG, "Got response, status code: " + response.code() + ", body: " + response.body().string());
+                        Log.e(TAG, "Got response, status code: " + response.code() + ", body: " + response.body().string());
                     }
                 });
             } catch (Exception e) {

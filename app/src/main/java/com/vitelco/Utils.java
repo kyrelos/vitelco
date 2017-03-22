@@ -4,20 +4,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.util.Random;
 
@@ -28,12 +20,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * Created by paulmuriithi on 21/03/2017.
@@ -63,7 +50,11 @@ public class Utils {
     }
 
     public void makeNotification(String message, int notificationId, Bundle extras) {
-        makeNotification(activity.getString(R.string.app_name), message, notificationId, Vitelco.class, extras);
+        makeNotification(context.getString(R.string.app_name), message, notificationId, Vitelco.class, extras);
+    }
+
+    public void makeNotification(String message, int notificationId, Class<?> activity, Bundle extras) {
+        makeNotification(context.getString(R.string.app_name), message, notificationId, activity, extras);
     }
 
     public void makeNotification(String title, String message, int notificationId, Class<?> activity, Bundle extras) {

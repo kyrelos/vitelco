@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,10 +23,11 @@ public class VitelcoTransaction extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
         pinEditText = (EditText) findViewById(R.id.pinEditText);
+        TextView instructionsTextView = (TextView) findViewById(R.id.instructionsTextView);
         findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isValidInput()) {
+                if (isValidInput()) {
                     cancel();
                 }
             }
@@ -32,16 +35,23 @@ public class VitelcoTransaction extends BaseActivity {
         findViewById(R.id.okButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isValidInput()) {
+                if (isValidInput()) {
                     ok();
                 }
             }
         });
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String message = extras.getString(Constants.MESSAGE_KEY);
+            if (!StringUtils.isBlank(message)) {
+                instructionsTextView.setText(message);
+            }
+        }
     }
 
     private boolean isValidInput() {
         pin = pinEditText.getText().toString().trim();
-        if(pin.isEmpty()){
+        if (pin.isEmpty()) {
             pinEditText.setError("Required");
             return false;
         }
@@ -50,10 +60,12 @@ public class VitelcoTransaction extends BaseActivity {
 
     private void ok() {
         postUserResponse(pin, Constants.ACCEPTED);
+        quitApp();
     }
 
     private void cancel() {
         postUserResponse(pin, Constants.REJECTED);
+        quitApp();
     }
 
     private void postUserResponse(String pin, String status) {

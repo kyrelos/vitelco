@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.2.0'
     compile 'com.google.code.gson:gson:2.7'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') { transitive = true }
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 }
