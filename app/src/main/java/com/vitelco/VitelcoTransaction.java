@@ -18,7 +18,8 @@ import org.json.JSONObject;
 
 public class VitelcoTransaction extends BaseActivity {
 
-    private String pin;
+    private String pin = "";
+    private boolean sentResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +88,14 @@ public class VitelcoTransaction extends BaseActivity {
     }
 
     private void ok() {
+        sentResponse = true;
         postUserResponse(pin, Constants.ACCEPTED);
         Toast.makeText(activity, getString(R.string.ok_thanks), Toast.LENGTH_LONG).show();
         quitApp();
     }
 
     private void cancel() {
+        sentResponse = true;
         postUserResponse(pin, Constants.REJECTED);
         Toast.makeText(activity, getString(R.string.cancelled), Toast.LENGTH_LONG).show();
         quitApp();
@@ -120,17 +123,15 @@ public class VitelcoTransaction extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onDestroy() {
+        try {
+            Log.e(TAG, "onDestroy called sentResponse " + sentResponse);
+            if (!sentResponse) {
+                cancel();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+        }
+        super.onDestroy();
     }
 }
