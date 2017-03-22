@@ -20,7 +20,8 @@ public class Constants {
     public static final String REQUEST_TYPE_KEY = "request_type";
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    public static final String API_URL = "https://ec2-54-154-229-112.eu-west-1.compute.amazonaws.com/api/v1";
+    //public static final String API_URL = "https://ec2-54-154-229-112.eu-west-1.compute.amazonaws.com/api/v1";
+    public static final String API_URL = "https://vitelco-demo.jumo.world/api/v1";
     public static final String SHARED_PREFS_NAME = "vitelco";
     public static final String TOKEN_REFRESH_REQUEST = "token_refresh";
     public static final String PUSH_RESPONSE_REQUEST = "push_response";
