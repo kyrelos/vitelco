@@ -24,7 +24,6 @@ public class VitelcoMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.e(TAG, "onMessageReceived called!");
         Context context = getApplicationContext();
         Map<String, String> dataMap = remoteMessage.getData();
         //extract details
@@ -43,7 +42,7 @@ public class VitelcoMessagingService extends FirebaseMessagingService {
         extras.putString(Constants.NOTIFICATION_ID_KEY, notificationId);
         //if message type is normal, just show the notification, else make the USSD like dialog
         if (messageType.equals(Constants.NORMAL_NOTIFICATION_TYPE)) {
-            new Utils(context).makeNotification(message, extras);
+            //new Utils(context).makeNotification(message, extras);
         } else {
             String transactionId = dataMap.get("v_transaction_id");
             extras.putString(Constants.TRANSACTION_ID_KEY, transactionId);

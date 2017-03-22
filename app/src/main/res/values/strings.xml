@@ -19,5 +19,7 @@
     <string name="dummy_team">Dothraki</string>
     <string name="team">Team: %1$s</string>
     <string name="phone">Phone: %1$s</string>
+    <string name="ok_thanks">Thanks for your response</string>
+    <string name="cancelled">Transaction cancelled</string>
 
 </resources>

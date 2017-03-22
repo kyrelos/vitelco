@@ -27,7 +27,7 @@
         <activity
             android:name=".VitelcoTransaction"
             android:label="@string/transaction_title"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert">
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="com.vitelco.VitelcoTransaction" />
 
